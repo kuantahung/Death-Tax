@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遺產稅財務規劃評估書</title>
+    <style>
+        /* =========================================
+           變數與基礎設定 (專業系統風格)
+           ========================================= */
+        :root {
+            --primary-dark: #0f172a;   /* 極深藍/黑 */
+            --primary-main: #1e293b;   /* 深鐵灰 */
+            --primary-accent: #1d4ed8; /* 專業金融藍 */
+            --bg-body: #e2e8f0;        /* 系統背景灰 */
+            --bg-surface: #ffffff;
+            --border-color: #cbd5e1;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --highlight: #f8fafc;
+            --danger: #b91c1c;         /* 警示/重點紅 */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, "PingFang TC", "微軟正黑體", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 30px 20px;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        /* =========================================
+           網頁輸入介面 (Web UI)
+           ========================================= */
+        .web-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-surface);
+            padding: 40px 50px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--primary-accent);
+        }
+        
+        .web-header-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-dark);
+            text-align: center;
+        }
+        .web-header-section h1 {
+            color: var(--primary-dark);
+            margin: 0 0 10px 0;
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+        .web-header-section p {
+            color: var(--text-muted);
+            font-size: 13.5px;
+            margin: 0;
+        }
+
+        /* 基本資料輸入區 - 特殊排版 */
+        .basic-info-grid {
+            display: flex;
+            gap: 20px;
+            background-color: var(--highlight);
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        .basic-info-grid .form-row {
+            flex: 1;
+            padding: 0;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .basic-info-grid label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .basic-info-grid input {
+            width: 100%;
+            max-width: 100%;
+            text-align: left;
+        }
+
+        /* 章節標題 */
+        h2 {
+            color: var(--primary-dark);
+            font-size: 17px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 橫式表單排版設計 */
+        .form-group-container {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .form-group-container:last-child {
+            border-bottom: none;
+        }
+        .form-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+        }
+        .form-row label {
+            flex: 1;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--primary-main);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 問號圖示設計 */
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background-color: #cbd5e1;
+            color: var(--bg-surface);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .info-icon:hover, .info-icon.active {
+            background-color: var(--primary-accent);
+        }
+        
+        /* 下拉說明框設計 */
+        .description-box {
+            display: none;
+            background-color: var(--highlight);
+            padding: 12px 16px;
+            border-left: 3px solid var(--primary-accent);
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+        .description-box.show { display: block; }
+
+        /* 輸入區塊對齊優化 */
+        .form-row .input-area {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        /* 輸入框專業化設計 */
+        input[type="number"], input[type="text"], input[type="date"] {
+            width: 100%;
+            max-width: 160px;
+            padding: 8px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 2px;
+            font-size: 15px;
+            text-align: right;
+            color: var(--primary-dark);
+            background-color: #fff;
+            transition: all 0.2s;
+        }
+        input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 1px var(--primary-accent);
+        }
+        input[type="number"]:disabled, input[type="text"]:disabled {
+            background-color: transparent;
+            color: var(--primary-dark);
+            border: none;
+            box-shadow: none;
+            font-weight: bold;
+            padding: 0;
+            text-align: right;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        /* 特殊區塊：配偶請求權 */
+        .spousal-claim-block {
+            display: none; 
+            background-color: #f1f5f9; 
+            padding: 5px 20px 15px 20px; 
+            border-left: 3px solid var(--primary-accent);
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .spousal-claim-block .form-row {
+            padding: 8px 0;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+        .spousal-claim-block .form-row:last-of-type {
+            border-bottom: none;
+        }
+        .spousal-claim-block label {
+            font-weight: normal;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        /* 試算結果區 */
+        .result-box {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 4px;
+            margin-top: 40px;
+        }
+        .result-box h3 {
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .result-item span { color: #cbd5e1; }
+        .result-item .val { color: white; font-weight: bold; font-family: monospace; font-size: 16px; }
+        .result-item.highlight {
+            font-size: 18px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .result-item.highlight span { color: white; font-weight: bold; }
+        .result-item.highlight .val { color: #facc15; font-size: 22px; }
+        
+        /* 規劃顧問實務指引 (網頁專屬) */
+        .advisor-guide {
+            margin-top: 35px;
+            padding: 25px 30px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 6px;
+        }
+        .advisor-guide h4 {
+            margin: 0 0 15px 0;
+            color: var(--primary-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .guide-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-left: 10px;
+        }
+        
+        /* 巢狀清單設計 */
+        .guide-list {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-main);
+        }
+        .guide-list > li {
+            margin-bottom: 15px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            padding-left: 5px;
+        }
+        .guide-list > li::marker {
+            font-weight: bold;
+            color: var(--primary-accent);
+        }
+        .guide-list > li:last-child {
+            margin-bottom: 0;
+        }
+        .guide-list strong {
+            color: var(--primary-main);
+        }
+        
+        .sub-guide-list {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        .sub-guide-list li {
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .sub-guide-list li::marker {
+            color: #94a3b8;
+        }
+
+        /* 按鈕群組 */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 20px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .btn-print {
+            flex: 2;
+            background-color: var(--primary-accent);
+            color: white;
+            letter-spacing: 1px;
+        }
+        .btn-print:hover { background-color: #1e3a8a; }
+        .btn-reset {
+            flex: 1;
+            background-color: #fff;
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+        .btn-reset:hover { background-color: var(--bg-body); }
+
+        /* =========================================
+           列印版報告介面 (Print UI) - 預設隱藏
+           ========================================= */
+        .print-container {
+            display: none;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 1.5cm 1.8cm; 
+            }
+            body {
+                background-color: #fff;
+                padding: 0;
+                color: #000;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+            
+            .web-container { display: none !important; }
+            
+            .print-container {
+                display: block;
+                font-family: "微軟正黑體", "標楷體", serif;
+            }
+
+            .print-header {
+                text-align: center;
+                margin-bottom: 25px;
+                border-bottom: 3px double #000;
+                padding-bottom: 15px;
+            }
+            .print-header h1 {
+                font-size: 24pt;
+                color: #000;
+                margin: 0 0 15px 0;
+                letter-spacing: 5px;
+            }
+            .print-meta-grid {
+                display: flex;
+                justify-content: space-between;
+                font-size: 11pt;
+            }
+            .print-meta-grid div {
+                display: flex;
+                align-items: center;
+            }
+            .print-meta-grid span.data-val {
+                font-weight: bold;
+                border-bottom: 1px solid #000;
+                padding: 0 10px;
+                min-width: 120px;
+                text-align: center;
+                margin-left: 5px;
+            }
+
+            .fin-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+                font-size: 11.5pt;
+            }
+            .fin-table th, .fin-table td {
+                padding: 10px 12px;
+                border: 1px solid #000;
+            }
+            .fin-table th {
+                background-color: #1e3a8a !important; 
+                color: white !important;
+                font-weight: bold;
+                text-align: center;
+                letter-spacing: 2px;
+            }
+            .fin-table td.col-item {
+                width: 70%;
+            }
+            .fin-table td.col-amt {
+                width: 30%;
+                text-align: right;
+                font-family: Arial, sans-serif; 
+                font-weight: bold;
+            }
+            
+            .row-section td {
+                background-color: #e2e8f0 !important;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+            .row-indent td.col-item {
+                padding-left: 30px;
+                color: #475569;
+            }
+            .row-subtotal td {
+                border-top: 2px solid #000;
+                font-weight: bold;
+            }
+            .row-grand-total td {
+                border-top: 3px double #000;
+                background-color: #f1f5f9 !important;
+                font-size: 13pt;
+                font-weight: 900;
+            }
+            
+            .print-notes {
+                border: 1px solid #000;
+                padding: 15px 20px;
+                font-size: 10pt;
+                line-height: 1.6;
+                break-inside: avoid;
+            }
+            .print-notes h4 {
+                margin: 0 0 10px 0;
+                font-size: 11pt;
+                border-bottom: 1px dashed #94a3b8;
+                padding-bottom: 5px;
+            }
+            .print-notes ol {
+                margin: 0;
+                padding-left: 24px;
+            }
+            .print-notes li {
+                margin-bottom: 8px;
+                text-align: justify;
+                padding-left: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="web-container">
+    <div class="web-header-section">
+        <h1>遺產稅財務規劃系統</h1>
+        <p>114年度稅法標準 ｜ 金額單位：新台幣 (萬元)</p>
+    </div>
+
+    <div class="basic-info-grid">
+        <div class="form-row">
+            <label>客戶姓名</label>
+            <input type="text" id="customerName" placeholder="請輸入姓名" oninput="calculateTax()">
+        </div>
+        <div class="form-row">
+            <label>評估日期</label>
+            <input type="date" id="evalDate" onchange="calculateTax()">
+        </div>
+    </div>
+
+    <h2>壹、財產總額</h2>
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>遺產總額 <span class="info-icon" onclick="toggleInfo('desc-estate', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="totalEstate" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-estate" class="description-box">
+            動產與不動產總計。依法不計入遺產總額之項目（如指定受益人之人壽保險理賠金）請勿計入。
+        </div>
+    </div>
+
+    <h2>貳、免稅額與各項扣除額</h2>
+    
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>法定免稅額 <span class="info-icon" onclick="toggleInfo('desc-exemption', this)">?</span></label>
+            <div class="input-area">
+                <span style="font-size: 15px; font-weight: bold;">1,333</span>
+            </div>
+        </div>
+        <div id="desc-exemption" class="description-box">一般案件固定為 1,333 萬元（自 111 年 1 月 1 日起適用之標準）。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>配偶扣除額 <span class="info-icon" onclick="toggleInfo('desc-spouse', this)">?</span></label>
+            <div class="input-area">
+                <input type="checkbox" id="hasSpouse" onchange="toggleSpouseFields()"> 
+                <span style="font-weight: 600; font-size: 14px; margin-right: 15px;">有配偶</span>
+                <span style="width: 50px; text-align: right; color: var(--text-muted);" id="lbl-spouse-deduct">0</span>
+            </div>
+        </div>
+        <div id="desc-spouse" class="description-box">被繼承人遺有配偶者，自遺產總額中扣除 553 萬元。</div>
+    </div>
+
+    <div class="spousal-claim-block" id="spousalClaimSection">
+        <div class="form-row">
+            <label>↳ 1. 被繼承人(過世者)婚後財產淨值</label>
+            <div class="input-area">
+                <input type="number" id="deceasedMaritalProperty" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div class="form-row">
+            <label>↳ 2. 生存配偶之婚後財產淨值</label>
+            <div class="input-area">
+                <input type="number" id="spouseMaritalProperty" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div class="form-row" style="background-color: #e2e8f0; margin-top: 5px; padding: 10px; border-radius: 4px; border:none;">
+            <label style="color: var(--primary-main); font-weight: bold;">↳ 系統試算：可主張之差額分配請求權 <span class="info-icon" onclick="toggleInfo('desc-spousal-claim', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="spousalClaim" value="0" disabled>
+            </div>
+        </div>
+        <div id="desc-spousal-claim" class="description-box" style="display: block; margin-top: 10px;">
+            <strong>【國稅局法規提醒】</strong><br>
+            系統公式：(被繼承人財產 － 生存配偶財產) ÷ 2。<br>
+            計算婚後財產時，依法必須<strong>「排除」因繼承、其他無償取得之財產（如贈與）及慰撫金</strong>，且需先扣除婚姻關係存續中所負債務。
+        </div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>直系血親卑親屬總人數 <span class="info-icon" onclick="toggleInfo('desc-descendant', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="descendantCount" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-descendant" class="description-box">每人得自遺產總額中扣除 56 萬元。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>未成年卑親屬年齡 <span class="info-icon" onclick="toggleInfo('desc-minor', this)">?</span></label>
+            <div class="input-area">
+                <input type="text" id="minorAges" placeholder="例: 12, 15" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-minor" class="description-box">請輸入未滿 18 歲之年齡（以逗號分隔），系統將按其距屆滿成年之年數，每年加扣 56 萬元。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>父母人數 <span class="info-icon" onclick="toggleInfo('desc-parent', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="parentCount" value="0" min="0" max="2" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-parent" class="description-box">被繼承人遺有父母者，每人得自遺產總額中扣除 138 萬元 (最多可填 2 人)。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>重度以上身心障礙人數 <span class="info-icon" onclick="toggleInfo('desc-disability', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="disabilityCount" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-disability" class="description-box">上述親屬若為重度以上身心障礙者或嚴重病人，每人得再加扣 693 萬元。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>死亡前未償債務 <span class="info-icon" onclick="toggleInfo('desc-debt', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="unpaidDebt" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-debt" class="description-box">被繼承人死亡前，未償之債務（如房屋貸款餘額等），具有確實證明者得扣除。</div>
+    </div>
+
+    <div class="form-group-container">
+        <div class="form-row">
+            <label>應納未納各項稅捐 <span class="info-icon" onclick="toggleInfo('desc-tax', this)">?</span></label>
+            <div class="input-area">
+                <input type="number" id="unpaidTaxes" value="0" min="0" oninput="calculateTax()">
+            </div>
+        </div>
+        <div id="desc-tax" class="description-box">被繼承人死亡前，依法應納之各項稅捐得自遺產總額中扣除。</div>
+    </div>
+
+    <div class="result-box">
+        <h3>參、試算結果總覽</h3>
+        
+        <div style="display: flex; flex-direction: column; width: 100%;">
+            <div class="result-item" style="margin-bottom: 0;">
+                <span>總扣除額 <span class="info-icon" onclick="toggleInfo('desc-total-deductions', this)" style="background-color:rgba(255,255,255,0.2); color:white; border:none;">?</span></span>
+                <span class="val" id="web-totalDeductionsText">138</span>
+            </div>
+            <div id="desc-total-deductions" class="description-box" style="margin-top: 10px; margin-bottom: 12px; background-color: rgba(255,255,255,0.05); border-left: 3px solid #60a5fa; color: #cbd5e1;">
+                </div>
+        </div>
+
+        <div class="result-item">
+            <span>課稅遺產淨額</span>
+            <span class="val" id="web-netEstateText">0</span>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; width: 100%;">
+            <div class="result-item" style="margin-bottom: 0;">
+                <span>適用稅率級距 <span class="info-icon" onclick="toggleInfo('desc-tax-brackets', this)" style="background-color:rgba(255,255,255,0.2); color:white; border:none;">?</span></span>
+                <span class="val" id="web-taxRateText">0%</span>
+            </div>
+            <div id="desc-tax-brackets" class="description-box" style="margin-top: 10px; margin-bottom: 0; background-color: rgba(255,255,255,0.05); border-left: 3px solid #60a5fa; color: #cbd5e1;">
+                <strong>114年起適用之課稅級距：</strong><br>
+                • 淨額 5,621 萬元以下：10%<br>
+                • 淨額 5,621 萬元 ～ 11,242 萬元：15%<br>
+                • 淨額 11,242 萬元以上：20%
+            </div>
+        </div>
+
+        <div class="result-item highlight">
+            <span>預估應納遺產稅額</span>
+            <span class="val" id="web-taxPayableText">0</span>
+        </div>
+    </div>
+
+    <div class="advisor-guide">
+        <h4>💡 規劃顧問實務指引 <span class="guide-subtitle">(僅供說明參考，不列印出)</span></h4>
+        <ol class="guide-list">
+            <li>
+                <strong>不動產計價基準：</strong>
+                遺產中之土地以「公告土地現值」、房屋以「房屋評定標準價格」計算，通常遠低於市價，是常見的節稅規劃標的。
+            </li>
+            <li>
+                <strong>保險理賠雙重規範：</strong>
+                指定受益人之人壽保險身故理賠金免計入遺產總額。但須注意：
+                <ul class="sub-guide-list">
+                    <li><strong>實質課稅原則：</strong>若有高齡、重病、躉繳、密集投保等八大特徵，國稅局仍可能依實質課稅原則併入遺產課徵。</li>
+                    <li><strong>最低稅負制：</strong>若「要保人與受益人非同一人」，受益人領取之給付須計入當年度個人基本所得額（每一申報戶享 3,740 萬元免稅額）。</li>
+                </ul>
+            </li>
+            <li>
+                <strong>拋棄繼承限制：</strong>
+                若繼承人拋棄繼承，依法將「無法扣除」該名繼承人之各項親屬扣除額。
+            </li>
+            <li>
+                <strong>配偶請求權重點：</strong>
+                「配偶剩餘財產差額分配請求權」是降低課稅級距的強大工具，但其計算基數依法必須「排除」因繼承、其他無償取得之財產及慰撫金。
+            </li>
+        </ol>
+    </div>
+
+    <div class="button-group">
+        <button onclick="resetForm()" class="btn btn-reset">清除重填</button>
+        <button onclick="window.print()" class="btn btn-print">產出專業財務報表 🖨️</button>
+    </div>
+</div>
+
+
+<div class="print-container">
+    <div class="print-header">
+        <h1>遺產稅稅額試算報告書</h1>
+        <div class="print-meta-grid">
+            <div>客戶姓名：<span class="data-val" id="out-customerName"></span></div>
+            <div>評估日期：<span class="data-val" id="out-evalDate"></span></div>
+            <div>金額單位：<span style="font-weight:bold; margin-left:5px;">新台幣 (萬元)</span></div>
+        </div>
+    </div>
+
+    <table class="fin-table">
+        <thead>
+            <tr>
+                <th class="col-item">試 算 項 目</th>
+                <th class="col-amt">金 額 (萬元)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row-section">
+                <td colspan="2">壹、財產總額</td>
+            </tr>
+            <tr>
+                <td class="col-item">遺產總額</td>
+                <td class="col-amt" id="out-totalEstate">0</td>
+            </tr>
+
+            <tr class="row-section">
+                <td colspan="2">貳、免稅額與各項扣除額</td>
+            </tr>
+            <tr>
+                <td class="col-item">法定免稅額</td>
+                <td class="col-amt">1,333</td>
+            </tr>
+            <tr>
+                <td class="col-item">配偶扣除額</td>
+                <td class="col-amt" id="out-spouse">0</td>
+            </tr>
+            <tr class="row-indent">
+                <td class="col-item">↳ 配偶剩餘財產差額分配請求權</td>
+                <td class="col-amt" id="out-spousalClaim">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">直系血親卑親屬扣除額</td>
+                <td class="col-amt" id="out-descendant">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">父母扣除額</td>
+                <td class="col-amt" id="out-parent">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">重度以上身心障礙扣除額</td>
+                <td class="col-amt" id="out-disability">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">死亡前未償債務</td>
+                <td class="col-amt" id="out-debt">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">應納未納各項稅捐</td>
+                <td class="col-amt" id="out-tax">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">喪葬費固定扣除額</td>
+                <td class="col-amt">138</td>
+            </tr>
+            <tr class="row-subtotal">
+                <td class="col-item">扣除額小計</td>
+                <td class="col-amt" id="out-totalDeductions">138</td>
+            </tr>
+
+            <tr class="row-section">
+                <td colspan="2">參、稅額計算結果</td>
+            </tr>
+            <tr>
+                <td class="col-item">課稅遺產淨額 (總額 - 免稅額 - 扣除額)</td>
+                <td class="col-amt" id="out-netEstate">0</td>
+            </tr>
+            <tr>
+                <td class="col-item">適用最高稅率級距</td>
+                <td class="col-amt" id="out-taxRate">0%</td>
+            </tr>
+            <tr class="row-grand-total">
+                <td class="col-item">預估應納遺產稅額</td>
+                <td class="col-amt" id="out-taxPayable">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="print-notes">
+        <h4>規劃備註與法規提醒</h4>
+        <ol>
+            <li><strong>剩餘財產差額分配請求權：</strong>計算婚後財產時，依法必須「排除」因繼承、其他無償取得之財產（如贈與）及慰撫金。</li>
+            <li><strong>人壽保險理賠金：</strong>依據《遺贈稅法》規定，約定給付其所「指定受益人」之人壽保險金額，全額免計入遺產總額。惟投保行為若有明顯避稅特徵（如高齡、重病投保），仍可能依實質課稅原則併入課稅。</li>
+            <li><strong>最低稅負制：</strong>若保單之「要保人」與「受益人」非同一人，受益人領取之死亡給付須計入基本所得額。每一申報戶享有 3,740 萬元免稅額。</li>
+            <li><strong>免責聲明：</strong>本報告書採用 114 年度稅法標準試算，資料僅供內部財務規劃與討論參考，實際核定稅額及適用法規，概以財政部國稅局最終審查結果為準。</li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; 
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        document.getElementById('evalDate').value = yyyy + '-' + mm + '-' + dd;
+        calculateTax(); 
+    };
+
+    function toggleInfo(descId, iconElement) {
+        const descBox = document.getElementById(descId);
+        descBox.classList.toggle('show');
+        iconElement.classList.toggle('active');
+    }
+
+    function formatNumber(num) {
+        if (num === 0) return "0";
+        return num.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    function toggleSpouseFields() {
+        const hasSpouse = document.getElementById('hasSpouse').checked;
+        const spousalSection = document.getElementById('spousalClaimSection');
+        
+        if (hasSpouse) {
+            spousalSection.style.display = 'block';
+        } else {
+            spousalSection.style.display = 'none';
+            document.getElementById('deceasedMaritalProperty').value = 0;
+            document.getElementById('spouseMaritalProperty').value = 0;
+        }
+        calculateTax();
+    }
+
+    function resetForm() {
+        document.getElementById('customerName').value = '';
+        document.getElementById('totalEstate').value = 0;
+        document.getElementById('hasSpouse').checked = false;
+        
+        // 重置配偶差額欄位
+        document.getElementById('deceasedMaritalProperty').value = 0;
+        document.getElementById('spouseMaritalProperty').value = 0;
+        document.getElementById('spousalClaimSection').style.display = 'none';
+        
+        document.getElementById('descendantCount').value = 0;
+        document.getElementById('minorAges').value = '';
+        document.getElementById('parentCount').value = 0;
+        document.getElementById('disabilityCount').value = 0;
+        document.getElementById('unpaidDebt').value = 0;
+        document.getElementById('unpaidTaxes').value = 0;
+        
+        const descBoxes = document.querySelectorAll('.description-box');
+        const infoIcons = document.querySelectorAll('.info-icon');
+        descBoxes.forEach(box => box.classList.remove('show'));
+        infoIcons.forEach(icon => icon.classList.remove('active'));
+
+        calculateTax();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 核心計算與雙軌數據同步
+    function calculateTax() {
+        // --- 1. 取得輸入值 ---
+        const customerName = document.getElementById('customerName').value || '未填寫';
+        const evalDateRaw = document.getElementById('evalDate').value;
+        const evalDate = evalDateRaw ? evalDateRaw.replace(/-/g, '/') : '未填寫';
+
+        const totalEstate = parseFloat(document.getElementById('totalEstate').value) || 0;
+        const hasSpouse = document.getElementById('hasSpouse').checked;
+        
+        // --- 智慧計算：配偶剩餘財產差額分配請求權 ---
+        let spousalClaim = 0;
+        if (hasSpouse) {
+            const deceasedMarital = parseFloat(document.getElementById('deceasedMaritalProperty').value) || 0;
+            const spouseMarital = parseFloat(document.getElementById('spouseMaritalProperty').value) || 0;
+            if (deceasedMarital > spouseMarital) {
+                spousalClaim = (deceasedMarital - spouseMarital) / 2;
+            }
+        }
+        document.getElementById('spousalClaim').value = spousalClaim;
+
+        const descendantCount = parseFloat(document.getElementById('descendantCount').value) || 0;
+        
+        const minorAgesStr = document.getElementById('minorAges').value;
+        const minorAges = minorAgesStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n >= 0 && n < 18);
+        let minorYears = 0;
+        minorAges.forEach(age => { minorYears += (18 - age); });
+
+        const parentCount = parseFloat(document.getElementById('parentCount').value) || 0;
+        const disabilityCount = parseFloat(document.getElementById('disabilityCount').value) || 0;
+        const unpaidDebt = parseFloat(document.getElementById('unpaidDebt').value) || 0;
+        const unpaidTaxes = parseFloat(document.getElementById('unpaidTaxes').value) || 0;
+
+        // --- 2. 扣除額計算 ---
+        const exemption = 1333; 
+        const funeralDeduction = 138; 
+        const spouseDeduction = hasSpouse ? 553 : 0;
+        const descendantDeduction = (56 * descendantCount) + (56 * minorYears);
+        const parentDeduction = 138 * parentCount;
+        const disabilityDeduction = 693 * disabilityCount;
+
+        const totalDeductions = funeralDeduction + spouseDeduction + spousalClaim + descendantDeduction + parentDeduction + disabilityDeduction + unpaidDebt + unpaidTaxes;
+
+        let netEstate = totalEstate - exemption - totalDeductions;
+        if (netEstate < 0) netEstate = 0;
+
+        // --- 3. 稅額計算 ---
+        let taxPayable = 0;
+        let taxRate = "0%";
+        if (netEstate > 0) {
+            if (netEstate <= 5621) {
+                taxPayable = netEstate * 0.10;
+                taxRate = "10%";
+            } else if (netEstate <= 11242) {
+                taxPayable = netEstate * 0.15 - 281.05;
+                taxRate = "15%";
+            } else {
+                taxPayable = netEstate * 0.20 - 843.15;
+                taxRate = "20%";
+            }
+        }
+
+        // --- 4. 更新 Web UI (含動態扣除表明細) ---
+        document.getElementById('lbl-spouse-deduct').innerText = hasSpouse ? "553" : "0";
+        document.getElementById('web-totalDeductionsText').innerText = formatNumber(totalDeductions);
+        document.getElementById('web-netEstateText').innerText = formatNumber(netEstate);
+        document.getElementById('web-taxRateText').innerText = taxRate;
+        document.getElementById('web-taxPayableText').innerText = formatNumber(Math.max(0, taxPayable));
+
+        // 動態生成扣除額加總明細
+        let breakdownHTML = `<strong style="color: #f8fafc; font-size: 14.5px;">扣除額計算明細：</strong><br>`;
+        breakdownHTML += `• 喪葬費固定扣除：138 萬元<br>`;
+        if (spouseDeduction > 0) breakdownHTML += `• 配偶扣除額：${formatNumber(spouseDeduction)} 萬元<br>`;
+        if (spousalClaim > 0) breakdownHTML += `• 剩餘財產差額分配請求權：${formatNumber(spousalClaim)} 萬元<br>`;
+        if (descendantDeduction > 0) breakdownHTML += `• 直系血親卑親屬扣除額：${formatNumber(descendantDeduction)} 萬元<br>`;
+        if (parentDeduction > 0) breakdownHTML += `• 父母扣除額：${formatNumber(parentDeduction)} 萬元<br>`;
+        if (disabilityDeduction > 0) breakdownHTML += `• 重度身心障礙扣除額：${formatNumber(disabilityDeduction)} 萬元<br>`;
+        if (unpaidDebt > 0) breakdownHTML += `• 未償債務：${formatNumber(unpaidDebt)} 萬元<br>`;
+        if (unpaidTaxes > 0) breakdownHTML += `• 未納稅捐：${formatNumber(unpaidTaxes)} 萬元<br>`;
+        breakdownHTML += `<div style="border-top: 1px dashed rgba(255,255,255,0.3); margin: 8px 0;"></div>`;
+        breakdownHTML += `<strong style="color: #facc15;">＝ 小計：${formatNumber(totalDeductions)} 萬元</strong>`;
+        
+        document.getElementById('desc-total-deductions').innerHTML = breakdownHTML;
+
+        // --- 5. 同步 Print UI (報表表格填充) ---
+        document.getElementById('out-customerName').innerText = customerName;
+        document.getElementById('out-evalDate').innerText = evalDate;
+        
+        document.getElementById('out-totalEstate').innerText = formatNumber(totalEstate);
+        document.getElementById('out-spouse').innerText = formatNumber(spouseDeduction);
+        document.getElementById('out-spousalClaim').innerText = formatNumber(spousalClaim);
+        document.getElementById('out-descendant').innerText = formatNumber(descendantDeduction);
+        document.getElementById('out-parent').innerText = formatNumber(parentDeduction);
+        document.getElementById('out-disability').innerText = formatNumber(disabilityDeduction);
+        document.getElementById('out-debt').innerText = formatNumber(unpaidDebt);
+        document.getElementById('out-tax').innerText = formatNumber(unpaidTaxes);
+        
+        document.getElementById('out-totalDeductions').innerText = formatNumber(totalDeductions);
+        document.getElementById('out-netEstate').innerText = formatNumber(netEstate);
+        document.getElementById('out-taxRate').innerText = taxRate;
+        document.getElementById('out-taxPayable').innerText = formatNumber(Math.max(0, taxPayable));
+    }
+</script>
+
+</body>
+</html>
