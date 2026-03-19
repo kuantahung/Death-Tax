@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>遺產稅財務規劃評估書</title>
+    <title>遺產稅財務規劃評估書 | 專業顧問版</title>
     <style>
         /* =========================================
-           變數與基礎設定 (專業系統風格)
+           變數與基礎設定 (頂級商業顧問風格)
            ========================================= */
         :root {
-            --primary-dark: #0f172a;   /* 極深藍/黑 */
-            --primary-main: #1e293b;   /* 深鐵灰 */
-            --primary-accent: #1d4ed8; /* 專業金融藍 */
-            --bg-body: #e2e8f0;        /* 系統背景灰 */
+            --primary-dark: #0f172a;   /* 極深藍/黑 - 標題/主色 */
+            --primary-main: #1e293b;   /* 深鐵灰 - 次要文字 */
+            --primary-accent: #c5a880; /* 香檳金 - 強調色/高質感 */
+            --accent-hover: #b09268;   /* 香檳金(暗) */
+            --bg-body: #f8fafc;        /* 系統背景亮灰 */
             --bg-surface: #ffffff;
-            --border-color: #cbd5e1;
+            --border-color: #e2e8f0;
             --text-main: #334155;
             --text-muted: #64748b;
-            --highlight: #f8fafc;
-            --danger: #b91c1c;         /* 警示/重點紅 */
+            --highlight: #fdfbf7;      /* 帶點暖金的背景 */
+            --danger: #dc2626;         /* 警示紅 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -29,8 +33,8 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.5;
-            padding: 30px 20px;
+            line-height: 1.6;
+            padding: 40px 20px;
             margin: 0;
             font-size: 15px;
         }
@@ -39,86 +43,101 @@
            網頁輸入介面 (Web UI)
            ========================================= */
         .web-container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             background: var(--bg-surface);
-            padding: 40px 50px;
-            border-radius: 4px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            border-top: 5px solid var(--primary-accent);
+            padding: 50px 60px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            border-top: 6px solid var(--primary-accent);
         }
         
         .web-header-section {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--primary-dark);
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
             text-align: center;
         }
         .web-header-section h1 {
             color: var(--primary-dark);
-            margin: 0 0 10px 0;
-            font-size: 26px;
-            letter-spacing: 2px;
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            letter-spacing: 3px;
+            font-weight: 700;
         }
         .web-header-section p {
-            color: var(--text-muted);
-            font-size: 13.5px;
+            color: var(--primary-accent);
+            font-size: 14px;
+            font-weight: 600;
             margin: 0;
+            letter-spacing: 1px;
         }
 
-        /* 基本資料輸入區 - 特殊排版 */
+        /* 基本資料輸入區 - 高質感排版 */
         .basic-info-grid {
-            display: flex;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
             background-color: var(--highlight);
-            padding: 15px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            margin-bottom: 30px;
+            padding: 25px 30px;
+            border: 1px solid #f1eadd;
+            border-radius: 6px;
+            margin-bottom: 40px;
         }
         .basic-info-grid .form-row {
-            flex: 1;
-            padding: 0;
-            border: none;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            padding: 0;
         }
         .basic-info-grid label {
             font-size: 13px;
+            font-weight: 600;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
         .basic-info-grid input {
             width: 100%;
-            max-width: 100%;
             text-align: left;
+            background: #fff;
         }
 
         /* 章節標題 */
         h2 {
             color: var(--primary-dark);
-            font-size: 17px;
-            margin: 30px 0 15px 0;
-            padding-bottom: 8px;
+            font-size: 18px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
+        }
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--primary-accent);
+            margin-right: 12px;
+            border-radius: 2px;
         }
         
         /* 橫式表單排版設計 */
         .form-group-container {
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
         }
-        .form-group-container:last-child {
-            border-bottom: none;
+        .form-group-container:hover {
+            background-color: #f8fafc;
         }
         .form-row {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 0;
+            padding: 16px 10px;
         }
         .form-row label {
             flex: 1;
@@ -139,32 +158,39 @@
             background-color: #cbd5e1;
             color: var(--bg-surface);
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            margin-left: 8px;
+            margin-left: 10px;
             cursor: pointer;
             transition: all 0.2s;
             user-select: none;
         }
         .info-icon:hover, .info-icon.active {
             background-color: var(--primary-accent);
+            transform: scale(1.1);
         }
         
         /* 下拉說明框設計 */
         .description-box {
             display: none;
             background-color: var(--highlight);
-            padding: 12px 16px;
+            padding: 14px 20px;
             border-left: 3px solid var(--primary-accent);
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--text-muted);
-            margin-bottom: 14px;
+            margin: 0 10px 16px 10px;
             line-height: 1.6;
+            border-radius: 0 4px 4px 0;
+            animation: fadeIn 0.3s ease-in-out;
         }
         .description-box.show { display: block; }
 
-        /* 輸入區塊對齊優化 */
-        .form-row .input-area {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-area {
             flex: 1;
             display: flex;
             justify-content: flex-end;
@@ -174,20 +200,22 @@
         /* 輸入框專業化設計 */
         input[type="number"], input[type="text"], input[type="date"] {
             width: 100%;
-            max-width: 160px;
-            padding: 8px 12px;
-            border: 1px solid #94a3b8;
-            border-radius: 2px;
+            max-width: 180px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
             font-size: 15px;
             text-align: right;
             color: var(--primary-dark);
             background-color: #fff;
             transition: all 0.2s;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+            font-family: inherit;
         }
         input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus {
             outline: none;
             border-color: var(--primary-accent);
-            box-shadow: 0 0 0 1px var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2);
         }
         input[type="number"]:disabled, input[type="text"]:disabled {
             background-color: transparent;
@@ -199,163 +227,197 @@
             text-align: right;
         }
         input[type="checkbox"] {
-            transform: scale(1.2);
-            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
             cursor: pointer;
+            accent-color: var(--primary-accent);
         }
         
         /* 特殊區塊：配偶請求權 */
         .spousal-claim-block {
             display: none; 
-            background-color: #f1f5f9; 
-            padding: 5px 20px 15px 20px; 
+            background-color: #f8fafc; 
+            padding: 10px 20px 20px 20px; 
             border-left: 3px solid var(--primary-accent);
-            margin-bottom: 15px;
-            border-radius: 0 4px 4px 0;
+            margin: 10px 0 20px 0;
+            border-radius: 0 6px 6px 0;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-accent);
         }
         .spousal-claim-block .form-row {
-            padding: 8px 0;
-            border-bottom: 1px dashed #cbd5e1;
+            padding: 12px 10px;
+            border-bottom: 1px dashed var(--border-color);
         }
         .spousal-claim-block .form-row:last-of-type {
             border-bottom: none;
         }
         .spousal-claim-block label {
-            font-weight: normal;
+            font-weight: 500;
             font-size: 14px;
             color: var(--text-main);
         }
 
-        /* 試算結果區 */
+        /* 試算結果區 - 深海藍質感 */
         .result-box {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1e293b 100%);
             color: white;
-            padding: 25px 30px;
-            border-radius: 4px;
-            margin-top: 40px;
+            padding: 35px 40px;
+            border-radius: 8px;
+            margin-top: 50px;
+            box-shadow: var(--shadow-md);
         }
         .result-box h3 {
-            color: white;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 10px;
+            color: var(--primary-accent);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 15px;
             margin-top: 0;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-align: center;
         }
         .result-item {
             display: flex;
             justify-content: space-between;
             font-size: 15px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             align-items: center;
         }
         .result-item span { color: #cbd5e1; }
-        .result-item .val { color: white; font-weight: bold; font-family: monospace; font-size: 16px; }
+        .result-item .val { 
+            color: white; 
+            font-weight: bold; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 18px; 
+            letter-spacing: 1px;
+        }
         .result-item.highlight {
             font-size: 18px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 15px;
-            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+            margin-top: 20px;
         }
         .result-item.highlight span { color: white; font-weight: bold; }
-        .result-item.highlight .val { color: #facc15; font-size: 22px; }
+        .result-item.highlight .val { color: var(--primary-accent); font-size: 26px; }
         
-        /* 規劃顧問實務指引 (網頁專屬) */
-        .advisor-guide {
-            margin-top: 35px;
-            padding: 25px 30px;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid var(--primary-accent);
+        /* 實質課稅八大態樣獨立特區 */
+        .tax-rules-box {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #fffaf0; /* 微弱的暖橘色背景 */
+            border: 1px solid #fcebb6;
+            border-left: 5px solid #f59e0b; /* 警示橘 */
             border-radius: 6px;
         }
-        .advisor-guide h4 {
-            margin: 0 0 15px 0;
-            color: var(--primary-dark);
-            font-size: 16px;
+        .tax-rules-box h4 {
+            margin: 0 0 20px 0;
+            color: #b45309;
+            font-size: 18px;
             display: flex;
             align-items: center;
         }
-        .guide-subtitle {
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px 20px;
+            margin-bottom: 15px;
+        }
+        .rule-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .rule-item::before {
+            content: '✓';
+            color: #f59e0b;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        .tax-rules-box p {
+            margin: 15px 0 0 0;
             font-size: 13px;
             color: var(--text-muted);
-            font-weight: normal;
-            margin-left: 10px;
+            line-height: 1.5;
+            border-top: 1px dashed #fcebb6;
+            padding-top: 15px;
         }
-        
-        /* 巢狀清單設計 */
+
+        /* 規劃顧問實務指引 */
+        .advisor-guide {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+        .advisor-guide h4 {
+            margin: 0 0 20px 0;
+            color: var(--primary-dark);
+            font-size: 17px;
+        }
         .guide-list {
             margin: 0;
             padding-left: 20px;
             color: var(--text-main);
         }
         .guide-list > li {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 14.5px;
-            line-height: 1.6;
+            line-height: 1.7;
             padding-left: 5px;
         }
         .guide-list > li::marker {
             font-weight: bold;
             color: var(--primary-accent);
         }
-        .guide-list > li:last-child {
-            margin-bottom: 0;
-        }
-        .guide-list strong {
-            color: var(--primary-main);
-        }
+        .guide-list strong { color: var(--primary-dark); }
         
-        .sub-guide-list {
-            margin: 8px 0 0 0;
-            padding-left: 20px;
-            list-style-type: disc;
-        }
-        .sub-guide-list li {
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-        .sub-guide-list li::marker {
-            color: #94a3b8;
-        }
-
         /* 按鈕群組 */
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 40px;
         }
         .btn {
-            padding: 12px 20px;
+            padding: 14px 24px;
             text-align: center;
-            border-radius: 2px;
+            border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
             font-weight: bold;
             border: 1px solid transparent;
             transition: all 0.2s;
+            letter-spacing: 1px;
         }
         .btn-print {
             flex: 2;
-            background-color: var(--primary-accent);
+            background-color: var(--primary-dark);
             color: white;
-            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
         }
-        .btn-print:hover { background-color: #1e3a8a; }
+        .btn-print:hover { 
+            background-color: var(--primary-main); 
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
         .btn-reset {
             flex: 1;
             background-color: #fff;
             color: var(--text-main);
-            border-color: var(--border-color);
+            border-color: #cbd5e1;
         }
-        .btn-reset:hover { background-color: var(--bg-body); }
+        .btn-reset:hover { 
+            background-color: var(--bg-body); 
+            border-color: var(--text-muted);
+        }
 
         /* =========================================
-           列印版報告介面 (Print UI) - 預設隱藏
+           列印版報告介面 (Print UI) - 專為面對客戶設計
            ========================================= */
-        .print-container {
-            display: none;
-        }
+        .print-container { display: none; }
 
         @media print {
             @page {
@@ -379,20 +441,21 @@
 
             .print-header {
                 text-align: center;
-                margin-bottom: 25px;
-                border-bottom: 3px double #000;
-                padding-bottom: 15px;
+                margin-bottom: 30px;
+                border-bottom: 2px solid var(--primary-accent);
+                padding-bottom: 20px;
             }
             .print-header h1 {
-                font-size: 24pt;
-                color: #000;
+                font-size: 26pt;
+                color: var(--primary-dark);
                 margin: 0 0 15px 0;
-                letter-spacing: 5px;
+                letter-spacing: 6px;
             }
             .print-meta-grid {
                 display: flex;
                 justify-content: space-between;
                 font-size: 11pt;
+                color: #333;
             }
             .print-meta-grid div {
                 display: flex;
@@ -401,7 +464,7 @@
             .print-meta-grid span.data-val {
                 font-weight: bold;
                 border-bottom: 1px solid #000;
-                padding: 0 10px;
+                padding: 0 15px;
                 min-width: 120px;
                 text-align: center;
                 margin-left: 5px;
@@ -410,71 +473,90 @@
             .fin-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 30px;
+                margin-bottom: 35px;
                 font-size: 11.5pt;
             }
             .fin-table th, .fin-table td {
-                padding: 10px 12px;
-                border: 1px solid #000;
+                padding: 12px 15px;
+                border: 1px solid #cbd5e1;
             }
             .fin-table th {
-                background-color: #1e3a8a !important; 
+                background-color: var(--primary-dark) !important; 
                 color: white !important;
                 font-weight: bold;
                 text-align: center;
-                letter-spacing: 2px;
+                letter-spacing: 3px;
             }
-            .fin-table td.col-item {
-                width: 70%;
-            }
+            .fin-table td.col-item { width: 70%; }
             .fin-table td.col-amt {
                 width: 30%;
                 text-align: right;
                 font-family: Arial, sans-serif; 
                 font-weight: bold;
+                color: var(--primary-dark);
             }
             
             .row-section td {
-                background-color: #e2e8f0 !important;
+                background-color: var(--bg-body) !important;
                 font-weight: bold;
                 letter-spacing: 1px;
+                color: var(--primary-dark);
+                border-top: 2px solid var(--primary-dark);
             }
             .row-indent td.col-item {
-                padding-left: 30px;
+                padding-left: 35px;
                 color: #475569;
+                font-size: 11pt;
             }
             .row-subtotal td {
                 border-top: 2px solid #000;
                 font-weight: bold;
             }
             .row-grand-total td {
-                border-top: 3px double #000;
+                border-top: 3px double var(--primary-dark);
                 background-color: #f1f5f9 !important;
-                font-size: 13pt;
+                font-size: 14pt;
                 font-weight: 900;
             }
             
             .print-notes {
-                border: 1px solid #000;
-                padding: 15px 20px;
+                border: 1px solid var(--border-color);
+                border-left: 4px solid var(--primary-accent);
+                padding: 20px 25px;
                 font-size: 10pt;
                 line-height: 1.6;
                 break-inside: avoid;
             }
             .print-notes h4 {
-                margin: 0 0 10px 0;
-                font-size: 11pt;
-                border-bottom: 1px dashed #94a3b8;
-                padding-bottom: 5px;
+                margin: 0 0 12px 0;
+                font-size: 12pt;
+                color: var(--primary-dark);
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 8px;
             }
             .print-notes ol {
                 margin: 0;
-                padding-left: 24px;
+                padding-left: 20px;
             }
             .print-notes li {
-                margin-bottom: 8px;
+                margin-bottom: 10px;
                 text-align: justify;
-                padding-left: 4px;
+                padding-left: 5px;
+            }
+            /* 列印版的實質課稅清單 */
+            .print-tax-rules {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin: 10px 0;
+                padding: 10px;
+                background-color: #f8fafc;
+                border: 1px solid #e2e8f0;
+            }
+            .print-tax-rules span {
+                width: 23%;
+                font-weight: bold;
+                font-size: 9.5pt;
             }
         }
     </style>
@@ -483,14 +565,14 @@
 
 <div class="web-container">
     <div class="web-header-section">
-        <h1>遺產稅財務規劃系統</h1>
+        <h1>資產傳承與稅務規劃評估</h1>
         <p>114年度稅法標準 ｜ 金額單位：新台幣 (萬元)</p>
     </div>
 
     <div class="basic-info-grid">
         <div class="form-row">
             <label>客戶姓名</label>
-            <input type="text" id="customerName" placeholder="請輸入姓名" oninput="calculateTax()">
+            <input type="text" id="customerName" placeholder="請輸入尊姓大名" oninput="calculateTax()">
         </div>
         <div class="form-row">
             <label>評估日期</label>
@@ -507,7 +589,7 @@
             </div>
         </div>
         <div id="desc-estate" class="description-box">
-            動產與不動產總計。依法不計入遺產總額之項目（如指定受益人之人壽保險理賠金）請勿計入。
+            動產與不動產總計。依法不計入遺產總額之項目（如符合規範之指定受益人人壽保險理賠金）請勿計入。
         </div>
     </div>
 
@@ -517,10 +599,10 @@
         <div class="form-row">
             <label>法定免稅額 <span class="info-icon" onclick="toggleInfo('desc-exemption', this)">?</span></label>
             <div class="input-area">
-                <span style="font-size: 15px; font-weight: bold;">1,333</span>
+                <span style="font-size: 16px; font-weight: bold; color: var(--primary-main);">1,333</span>
             </div>
         </div>
-        <div id="desc-exemption" class="description-box">一般案件固定為 1,333 萬元（自 111 年 1 月 1 日起適用之標準）。</div>
+        <div id="desc-exemption" class="description-box">一般案件固定為 1,333 萬元（自 111 年起適用之標準）。</div>
     </div>
 
     <div class="form-group-container">
@@ -528,8 +610,8 @@
             <label>配偶扣除額 <span class="info-icon" onclick="toggleInfo('desc-spouse', this)">?</span></label>
             <div class="input-area">
                 <input type="checkbox" id="hasSpouse" onchange="toggleSpouseFields()"> 
-                <span style="font-weight: 600; font-size: 14px; margin-right: 15px;">有配偶</span>
-                <span style="width: 50px; text-align: right; color: var(--text-muted);" id="lbl-spouse-deduct">0</span>
+                <span style="font-weight: 600; font-size: 15px; margin-right: 20px;">有配偶</span>
+                <span style="width: 50px; text-align: right; font-weight: bold; color: var(--text-muted);" id="lbl-spouse-deduct">0</span>
             </div>
         </div>
         <div id="desc-spouse" class="description-box">被繼承人遺有配偶者，自遺產總額中扣除 553 萬元。</div>
@@ -548,10 +630,10 @@
                 <input type="number" id="spouseMaritalProperty" value="0" min="0" oninput="calculateTax()">
             </div>
         </div>
-        <div class="form-row" style="background-color: #e2e8f0; margin-top: 5px; padding: 10px; border-radius: 4px; border:none;">
-            <label style="color: var(--primary-main); font-weight: bold;">↳ 系統試算：可主張之差額分配請求權 <span class="info-icon" onclick="toggleInfo('desc-spousal-claim', this)">?</span></label>
+        <div class="form-row" style="background-color: #fff; margin-top: 10px; padding: 12px; border-radius: 4px; box-shadow: var(--shadow-sm);">
+            <label style="color: var(--primary-dark); font-weight: bold;">↳ 系統試算：可主張之差額分配請求權 <span class="info-icon" onclick="toggleInfo('desc-spousal-claim', this)">?</span></label>
             <div class="input-area">
-                <input type="number" id="spousalClaim" value="0" disabled>
+                <input type="number" id="spousalClaim" value="0" disabled style="color: var(--primary-accent);">
             </div>
         </div>
         <div id="desc-spousal-claim" class="description-box" style="display: block; margin-top: 10px;">
@@ -629,7 +711,7 @@
                 <span>總扣除額 <span class="info-icon" onclick="toggleInfo('desc-total-deductions', this)" style="background-color:rgba(255,255,255,0.2); color:white; border:none;">?</span></span>
                 <span class="val" id="web-totalDeductionsText">138</span>
             </div>
-            <div id="desc-total-deductions" class="description-box" style="margin-top: 10px; margin-bottom: 12px; background-color: rgba(255,255,255,0.05); border-left: 3px solid #60a5fa; color: #cbd5e1;">
+            <div id="desc-total-deductions" class="description-box" style="margin-top: 15px; margin-bottom: 20px; background-color: rgba(255,255,255,0.05); border-left: 3px solid var(--primary-accent); color: #e2e8f0;">
                 </div>
         </div>
 
@@ -643,8 +725,8 @@
                 <span>適用稅率級距 <span class="info-icon" onclick="toggleInfo('desc-tax-brackets', this)" style="background-color:rgba(255,255,255,0.2); color:white; border:none;">?</span></span>
                 <span class="val" id="web-taxRateText">0%</span>
             </div>
-            <div id="desc-tax-brackets" class="description-box" style="margin-top: 10px; margin-bottom: 0; background-color: rgba(255,255,255,0.05); border-left: 3px solid #60a5fa; color: #cbd5e1;">
-                <strong>114年起適用之課稅級距：</strong><br>
+            <div id="desc-tax-brackets" class="description-box" style="margin-top: 15px; margin-bottom: 0; background-color: rgba(255,255,255,0.05); border-left: 3px solid var(--primary-accent); color: #e2e8f0;">
+                <strong style="color: var(--primary-accent);">114年起適用之課稅級距：</strong><br>
                 • 淨額 5,621 萬元以下：10%<br>
                 • 淨額 5,621 萬元 ～ 11,242 萬元：15%<br>
                 • 淨額 11,242 萬元以上：20%
@@ -657,28 +739,35 @@
         </div>
     </div>
 
+    <div class="tax-rules-box">
+        <h4>⚠️ 規劃地雷提醒：保險理賠實質課稅八大態樣</h4>
+        <div class="rules-grid">
+            <div class="rule-item">1. 重病投保</div>
+            <div class="rule-item">2. 高齡投保</div>
+            <div class="rule-item">3. 短期投保</div>
+            <div class="rule-item">4. 躉繳投保 (一次繳清)</div>
+            <div class="rule-item">5. 密集投保</div>
+            <div class="rule-item">6. 舉債投保</div>
+            <div class="rule-item">7. 鉅額投保</div>
+            <div class="rule-item">8. 保費高於或等於保額</div>
+        </div>
+        <p>依據財政部核釋，即便保單已指定受益人，若投保動機具備上述多項避稅特徵，國稅局仍可能依「實質課稅原則」，將該筆理賠金視為遺產，併入遺產總額課徵遺產稅。規劃時應特別留意保單之合理性與財務現況的適配性。</p>
+    </div>
+
     <div class="advisor-guide">
-        <h4>💡 規劃顧問實務指引 <span class="guide-subtitle">(僅供說明參考，不列印出)</span></h4>
+        <h4>💡 顧問傳承規劃指引</h4>
         <ol class="guide-list">
             <li>
-                <strong>不動產計價基準：</strong>
-                遺產中之土地以「公告土地現值」、房屋以「房屋評定標準價格」計算，通常遠低於市價，是常見的節稅規劃標的。
+                <strong>不動產計價基準與壓縮：</strong>
+                遺產中之土地以「公告土地現值」、房屋以「房屋評定標準價格」計算。由於此標準通常低於市價，是資產傳承中常見的壓縮稅基標的。
             </li>
             <li>
-                <strong>保險理賠雙重規範：</strong>
-                指定受益人之人壽保險身故理賠金免計入遺產總額。但須注意：
-                <ul class="sub-guide-list">
-                    <li><strong>實質課稅原則：</strong>若有高齡、重病、躉繳、密集投保等八大特徵，國稅局仍可能依實質課稅原則併入遺產課徵。</li>
-                    <li><strong>最低稅負制：</strong>若「要保人與受益人非同一人」，受益人領取之給付須計入當年度個人基本所得額（每一申報戶享 3,740 萬元免稅額）。</li>
-                </ul>
+                <strong>保單規劃的雙重規範：</strong>
+                除上述「實質課稅原則」外，若保單「要保人與受益人非同一人」，受益人領取之死亡給付須計入當年度個人基本所得額（最低稅負制，每一申報戶享 3,740 萬元免稅額）。
             </li>
             <li>
-                <strong>拋棄繼承限制：</strong>
-                若繼承人拋棄繼承，依法將「無法扣除」該名繼承人之各項親屬扣除額。
-            </li>
-            <li>
-                <strong>配偶請求權重點：</strong>
-                「配偶剩餘財產差額分配請求權」是降低課稅級距的強大工具，但其計算基數依法必須「排除」因繼承、其他無償取得之財產及慰撫金。
+                <strong>配偶差額分配請求權之善用：</strong>
+                是降低課稅級距的強大工具。運用時務必精算，因其計算基數依法必須「排除」因繼承、其他無償取得之財產及慰撫金。
             </li>
         </ol>
     </div>
@@ -689,12 +778,11 @@
     </div>
 </div>
 
-
 <div class="print-container">
     <div class="print-header">
-        <h1>遺產稅稅額試算報告書</h1>
+        <h1>資產傳承與稅額試算報告書</h1>
         <div class="print-meta-grid">
-            <div>客戶姓名：<span class="data-val" id="out-customerName"></span></div>
+            <div>客戶尊榮：<span class="data-val" id="out-customerName"></span></div>
             <div>評估日期：<span class="data-val" id="out-evalDate"></span></div>
             <div>金額單位：<span style="font-weight:bold; margin-left:5px;">新台幣 (萬元)</span></div>
         </div>
@@ -703,7 +791,7 @@
     <table class="fin-table">
         <thead>
             <tr>
-                <th class="col-item">試 算 項 目</th>
+                <th class="col-item">財 務 試 算 項 目</th>
                 <th class="col-amt">金 額 (萬元)</th>
             </tr>
         </thead>
@@ -712,12 +800,12 @@
                 <td colspan="2">壹、財產總額</td>
             </tr>
             <tr>
-                <td class="col-item">遺產總額</td>
+                <td class="col-item">遺產總額估值</td>
                 <td class="col-amt" id="out-totalEstate">0</td>
             </tr>
 
             <tr class="row-section">
-                <td colspan="2">貳、免稅額與各項扣除額</td>
+                <td colspan="2">貳、免稅額與各項法定扣除額</td>
             </tr>
             <tr>
                 <td class="col-item">法定免稅額</td>
@@ -779,13 +867,19 @@
     </table>
 
     <div class="print-notes">
-        <h4>規劃備註與法規提醒</h4>
+        <h4>▍ 專業顧問備註與風險提醒</h4>
         <ol>
-            <li><strong>剩餘財產差額分配請求權：</strong>計算婚後財產時，依法必須「排除」因繼承、其他無償取得之財產（如贈與）及慰撫金。</li>
-            <li><strong>人壽保險理賠金：</strong>依據《遺贈稅法》規定，約定給付其所「指定受益人」之人壽保險金額，全額免計入遺產總額。惟投保行為若有明顯避稅特徵（如高齡、重病投保），仍可能依實質課稅原則併入課稅。</li>
-            <li><strong>最低稅負制：</strong>若保單之「要保人」與「受益人」非同一人，受益人領取之死亡給付須計入基本所得額。每一申報戶享有 3,740 萬元免稅額。</li>
-            <li><strong>免責聲明：</strong>本報告書採用 114 年度稅法標準試算，資料僅供內部財務規劃與討論參考，實際核定稅額及適用法規，概以財政部國稅局最終審查結果為準。</li>
+            <li><strong>剩餘財產差額分配請求權：</strong>計算婚後財產時，依法必須「排除」因繼承、無償取得之財產及慰撫金。</li>
+            <li><strong>最低稅負制：</strong>若保單之「要保人」與「受益人」非同一人，受益人領取之死亡給付須計入基本所得額（免稅額 3,740 萬元）。</li>
+            <li><strong>免責聲明：</strong>本報告書採用 114 年度稅法標準試算，資料僅供財務規劃與討論參考，實際核定稅額概以國稅局最終審查結果為準。</li>
         </ol>
+        <div style="margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+            <strong style="color: #b45309;">⚠️ 保險理賠實質課稅八大態樣 (符合多項可能遭國稅局併入遺產課稅)：</strong>
+            <div class="print-tax-rules">
+                <span>1. 重病投保</span><span>2. 高齡投保</span><span>3. 短期投保</span><span>4. 躉繳投保</span>
+                <span>5. 密集投保</span><span>6. 舉債投保</span><span>7. 鉅額投保</span><span>8. 保費高於或等於保額</span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -831,7 +925,6 @@
         document.getElementById('totalEstate').value = 0;
         document.getElementById('hasSpouse').checked = false;
         
-        // 重置配偶差額欄位
         document.getElementById('deceasedMaritalProperty').value = 0;
         document.getElementById('spouseMaritalProperty').value = 0;
         document.getElementById('spousalClaimSection').style.display = 'none';
@@ -852,17 +945,16 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 核心計算與雙軌數據同步
     function calculateTax() {
-        // --- 1. 取得輸入值 ---
-        const customerName = document.getElementById('customerName').value || '未填寫';
+        // 1. 取得輸入值
+        const customerName = document.getElementById('customerName').value || '貴賓';
         const evalDateRaw = document.getElementById('evalDate').value;
         const evalDate = evalDateRaw ? evalDateRaw.replace(/-/g, '/') : '未填寫';
 
         const totalEstate = parseFloat(document.getElementById('totalEstate').value) || 0;
         const hasSpouse = document.getElementById('hasSpouse').checked;
         
-        // --- 智慧計算：配偶剩餘財產差額分配請求權 ---
+        // 智慧計算：配偶剩餘財產差額分配請求權
         let spousalClaim = 0;
         if (hasSpouse) {
             const deceasedMarital = parseFloat(document.getElementById('deceasedMaritalProperty').value) || 0;
@@ -885,7 +977,7 @@
         const unpaidDebt = parseFloat(document.getElementById('unpaidDebt').value) || 0;
         const unpaidTaxes = parseFloat(document.getElementById('unpaidTaxes').value) || 0;
 
-        // --- 2. 扣除額計算 ---
+        // 2. 扣除額計算
         const exemption = 1333; 
         const funeralDeduction = 138; 
         const spouseDeduction = hasSpouse ? 553 : 0;
@@ -898,7 +990,7 @@
         let netEstate = totalEstate - exemption - totalDeductions;
         if (netEstate < 0) netEstate = 0;
 
-        // --- 3. 稅額計算 ---
+        // 3. 稅額計算
         let taxPayable = 0;
         let taxRate = "0%";
         if (netEstate > 0) {
@@ -914,7 +1006,7 @@
             }
         }
 
-        // --- 4. 更新 Web UI (含動態扣除表明細) ---
+        // 4. 更新 Web UI
         document.getElementById('lbl-spouse-deduct').innerText = hasSpouse ? "553" : "0";
         document.getElementById('web-totalDeductionsText').innerText = formatNumber(totalDeductions);
         document.getElementById('web-netEstateText').innerText = formatNumber(netEstate);
@@ -922,7 +1014,7 @@
         document.getElementById('web-taxPayableText').innerText = formatNumber(Math.max(0, taxPayable));
 
         // 動態生成扣除額加總明細
-        let breakdownHTML = `<strong style="color: #f8fafc; font-size: 14.5px;">扣除額計算明細：</strong><br>`;
+        let breakdownHTML = `<strong style="color: var(--primary-accent); font-size: 15px;">扣除額計算明細：</strong><br>`;
         breakdownHTML += `• 喪葬費固定扣除：138 萬元<br>`;
         if (spouseDeduction > 0) breakdownHTML += `• 配偶扣除額：${formatNumber(spouseDeduction)} 萬元<br>`;
         if (spousalClaim > 0) breakdownHTML += `• 剩餘財產差額分配請求權：${formatNumber(spousalClaim)} 萬元<br>`;
@@ -931,12 +1023,12 @@
         if (disabilityDeduction > 0) breakdownHTML += `• 重度身心障礙扣除額：${formatNumber(disabilityDeduction)} 萬元<br>`;
         if (unpaidDebt > 0) breakdownHTML += `• 未償債務：${formatNumber(unpaidDebt)} 萬元<br>`;
         if (unpaidTaxes > 0) breakdownHTML += `• 未納稅捐：${formatNumber(unpaidTaxes)} 萬元<br>`;
-        breakdownHTML += `<div style="border-top: 1px dashed rgba(255,255,255,0.3); margin: 8px 0;"></div>`;
-        breakdownHTML += `<strong style="color: #facc15;">＝ 小計：${formatNumber(totalDeductions)} 萬元</strong>`;
+        breakdownHTML += `<div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 10px 0;"></div>`;
+        breakdownHTML += `<strong style="color: #fff;">＝ 小計：${formatNumber(totalDeductions)} 萬元</strong>`;
         
         document.getElementById('desc-total-deductions').innerHTML = breakdownHTML;
 
-        // --- 5. 同步 Print UI (報表表格填充) ---
+        // 5. 同步 Print UI
         document.getElementById('out-customerName').innerText = customerName;
         document.getElementById('out-evalDate').innerText = evalDate;
         
