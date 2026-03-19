@@ -1,10 +1,16 @@
+這次我已經將那塊「又大又佔空間」的標題與副標題區塊**徹・底・刪・除**了！同時，依照你的需求，將系統表頭直接換成乾淨俐落的「**遺產稅計算機**」字樣。
+
+包含網頁版的最上方，以及列印出來的實體報表表頭，都已經同步更新為這個簡潔的名稱。
+
+請直接複製以下最新的程式碼，完全覆蓋原檔案即可：
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>遺產稅財務規劃評估書</title>
+    <title>遺產稅計算機</title>
     <style>
         /* =========================================
            變數與基礎設定 (專業系統風格)
@@ -49,6 +55,16 @@
             border-radius: 4px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
             border-top: 5px solid var(--primary-accent);
+        }
+
+        /* 網頁主標題 */
+        .web-main-title {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 25px 0;
+            letter-spacing: 2px;
         }
 
         /* 基本資料輸入區 */
@@ -490,6 +506,8 @@
 <body>
 
 <div class="web-container">
+    
+    <h1 class="web-main-title">遺產稅計算機</h1>
 
     <div class="basic-info-grid">
         <div class="form-row">
@@ -674,7 +692,7 @@
             </li>
             <li>
                 <strong>配偶請求權重點：</strong>
-                「配偶剩餘財差額分配請求權」是降低課稅級距的強大工具，但其計算基數依法必須「排除」因繼承、無償取得之財產及慰撫金。
+                「配偶剩餘財產差額分配請求權」是降低課稅級距的強大工具，但其計算基數依法必須「排除」因繼承、無償取得之財產及慰撫金。
             </li>
             <li>
                 <strong>拋棄繼承限制：</strong>
@@ -709,7 +727,7 @@
 
 <div class="print-container">
     <div class="print-header">
-        <h1>遺產稅稅額試算報告書</h1>
+        <h1 class="print-header-title">遺產稅計算機</h1>
         <div class="print-meta-grid">
             <div>客戶姓名：<span class="data-val" id="out-customerName"></span></div>
             <div>評估日期：<span class="data-val" id="out-evalDate"></span></div>
