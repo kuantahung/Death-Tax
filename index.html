@@ -258,7 +258,7 @@
             color: var(--text-main);
         }
 
-        /* 試算結果區 - 深海藍質感 */
+        /* 試算結果區 */
         .result-box {
             background: linear-gradient(135deg, var(--primary-dark) 0%, #1e293b 100%);
             color: white;
@@ -345,7 +345,7 @@
             padding-top: 15px;
         }
 
-        /* 規劃顧問實務指引 */
+        /* 規劃顧問實務指引 (包含速查表) */
         .advisor-guide {
             margin-top: 30px;
             padding: 30px;
@@ -374,6 +374,60 @@
             color: var(--primary-accent);
         }
         .guide-list strong { color: var(--primary-dark); }
+
+        /* 保險稅務態樣速查表專屬設計 */
+        .tax-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            font-size: 14px;
+            background-color: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        .tax-summary-table th, .tax-summary-table td {
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            line-height: 1.5;
+            word-break: keep-all; /* 避免中文單字被截斷 */
+        }
+        .tax-summary-table th {
+            background-color: var(--primary-main);
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+        /* 前三欄強制不換行，確保排版美觀 */
+        .tax-summary-table th:nth-child(1), .tax-summary-table td:nth-child(1),
+        .tax-summary-table th:nth-child(2), .tax-summary-table td:nth-child(2),
+        .tax-summary-table th:nth-child(3), .tax-summary-table td:nth-child(3) {
+            white-space: nowrap;
+        }
+        
+        .tax-summary-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .tax-summary-table tr:hover {
+            background-color: #f1f5f9;
+        }
+        .tax-summary-table td:first-child {
+            font-weight: bold;
+            color: var(--primary-accent);
+        }
+        .table-section-title {
+            margin: 40px 0 15px 0;
+            padding-top: 20px;
+            border-top: 2px dashed #cbd5e1;
+            color: var(--primary-dark);
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
         
         /* 按鈕群組 */
         .button-group {
@@ -441,7 +495,7 @@
 
             .print-header {
                 text-align: center;
-                margin: 0 10px 30px 10px; /* 整體向內縮，增加呼吸空間 */
+                margin: 0 10px 30px 10px; 
                 border-bottom: 2px solid var(--primary-accent);
                 padding-bottom: 20px;
             }
@@ -456,7 +510,7 @@
                 justify-content: space-between;
                 font-size: 11pt;
                 color: #333;
-                padding: 0 25px; /* ★ 增加左右內邊距，解決靠邊問題 ★ */
+                padding: 0 25px; 
             }
             .print-meta-grid div {
                 display: flex;
@@ -770,6 +824,86 @@
                 是降低課稅級距的強大工具。運用時務必精算，因其計算基數依法必須「排除」因繼承、其他無償取得之財產及慰撫金。
             </li>
         </ol>
+
+        <div class="table-section-title">📊 保險稅務態樣實務速查表</div>
+        <div style="overflow-x: auto;">
+            <table class="tax-summary-table">
+                <thead>
+                    <tr>
+                        <th>稅目</th>
+                        <th>態樣（角色安排）</th>
+                        <th>課稅對象</th>
+                        <th>課稅主體與金額認定基準</th>
+                        <th>實務關鍵備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>遺產稅</td>
+                        <td>A(要) = B(被) ≠ C(受)</td>
+                        <td>A (死亡)</td>
+                        <td>原則上不計入遺產總額。</td>
+                        <td>若符合「實質課稅八大態樣」，仍會被稅局課遺產稅。</td>
+                    </tr>
+                    <tr>
+                        <td>遺產稅</td>
+                        <td>A(要) ≠ B(被) ≠ C(受)</td>
+                        <td>A (死亡)</td>
+                        <td>計入 A 遺產。以 A 死亡日之「保單價值」計算。</td>
+                        <td>因 A 死亡時未出險，保單被視為 A 的財產權利。</td>
+                    </tr>
+                    <tr>
+                        <td>遺產稅</td>
+                        <td>B(要) = C(受) ≠ A(被)</td>
+                        <td>A (死亡)</td>
+                        <td>不課遺產稅。</td>
+                        <td>B 既是付費者也是領錢者，視為取回個人財產。</td>
+                    </tr>
+                    <tr>
+                        <td>贈與稅</td>
+                        <td>A(要) ≠ C(滿期受益人)</td>
+                        <td>A (贈與人)</td>
+                        <td>滿期給付日。以「滿期金」全額計入贈與。</td>
+                        <td>父母付費、子女領錢，屬於無償贈與行為。</td>
+                    </tr>
+                    <tr>
+                        <td>贈與稅</td>
+                        <td>A(要) ≠ B(被) ≠ C(身故受益人)</td>
+                        <td>A (贈與人)</td>
+                        <td>B 死亡給付日。以「身故保險金」計入贈與。</td>
+                        <td>A 透過保險契約，在 B 死亡時將利益贈與 C。</td>
+                    </tr>
+                    <tr>
+                        <td>贈與稅</td>
+                        <td>A(要) 變更為 B(要)</td>
+                        <td>A (贈與人)</td>
+                        <td>變更核准日。以「保單價值準備金」計入贈與。</td>
+                        <td>變更要保人等同將整張保單的財產價值贈與他人。</td>
+                    </tr>
+                    <tr>
+                        <td>贈與稅</td>
+                        <td>B(要) 但由 A(代繳保費)</td>
+                        <td>A (贈與人)</td>
+                        <td>保費繳納日。以「代繳保費金額」計入贈與。</td>
+                        <td>屬「視同贈與」（無償為他人承擔債務）。</td>
+                    </tr>
+                    <tr>
+                        <td>所得稅</td>
+                        <td>投資型保單 (99/1/1後)</td>
+                        <td>A (要保人)</td>
+                        <td>收益發生年度。投資帳戶之利息/股利所得。</td>
+                        <td>由要保人併入年度綜合所得稅申報。</td>
+                    </tr>
+                    <tr>
+                        <td>最低稅負</td>
+                        <td>A(要) ≠ C(受益人)</td>
+                        <td>C (受益人)</td>
+                        <td>受領給付日。死亡給付每戶有 3,740 萬免稅額。</td>
+                        <td>若為生存給付（滿期金/還本金），則須全額計入。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="button-group">
