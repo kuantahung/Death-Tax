@@ -502,14 +502,14 @@
         }
 
         /* =========================================
-           列印版報告介面 (Print UI) 
+           列印版報告介面 (Print UI) - 強制單頁收斂版
            ========================================= */
         .print-container { display: none; }
 
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 1.5cm 1.8cm; 
+                margin: 1.2cm 1.5cm; /* 縮小上下左右邊界，爭取最大可用空間 */
             }
             body {
                 background-color: #fff;
@@ -528,22 +528,22 @@
 
             .print-header {
                 text-align: center;
-                margin: 0 10px 30px 10px; 
+                margin: 0 0 15px 0; /* 縮小底部間距 */
                 border-bottom: 2px solid var(--primary-accent);
-                padding-bottom: 20px;
+                padding-bottom: 12px; /* 縮小內距 */
             }
             .print-header h1 {
-                font-size: 26pt;
+                font-size: 24pt; /* 字體稍微調小以節省空間 */
                 color: var(--primary-dark);
-                margin: 0 0 20px 0;
-                letter-spacing: 6px;
+                margin: 0 0 12px 0;
+                letter-spacing: 5px;
             }
             .print-meta-grid {
                 display: flex;
                 justify-content: space-between;
                 font-size: 11pt;
                 color: #333;
-                padding: 0 25px; 
+                padding: 0 15px; /* 稍微往內縮即可 */
             }
             .print-meta-grid div {
                 display: flex;
@@ -561,11 +561,12 @@
             .fin-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 35px;
-                font-size: 11.5pt;
+                margin-bottom: 20px; /* 縮小表格與下方備註的距離 */
+                font-size: 11pt; /* 整體字體微調 */
+                page-break-inside: avoid; /* 強制表格不可從中間被切斷 */
             }
             .fin-table th, .fin-table td {
-                padding: 12px 15px;
+                padding: 8px 12px; /* ★ 核心壓縮：減小每列的垂直高度 ★ */
                 border: 1px solid #cbd5e1;
             }
             .fin-table th {
@@ -574,6 +575,7 @@
                 font-weight: bold;
                 text-align: center;
                 letter-spacing: 3px;
+                padding: 10px 12px; /* 標題列稍微保留高度 */
             }
             .fin-table td.col-item { width: 70%; }
             .fin-table td.col-amt {
@@ -594,7 +596,7 @@
             .row-indent td.col-item {
                 padding-left: 35px;
                 color: #475569;
-                font-size: 11pt;
+                font-size: 10.5pt;
             }
             .row-subtotal td {
                 border-top: 2px solid #000;
@@ -603,47 +605,47 @@
             .row-grand-total td {
                 border-top: 3px double var(--primary-dark);
                 background-color: #f1f5f9 !important;
-                font-size: 14pt;
+                font-size: 13pt;
                 font-weight: 900;
+                padding: 12px !important; /* 結果列稍微放大強調 */
             }
             
             .print-notes {
                 border: 1px solid var(--border-color);
                 border-left: 4px solid var(--primary-accent);
-                padding: 20px 25px;
-                font-size: 10pt;
-                line-height: 1.6;
-                break-inside: avoid;
+                padding: 15px 20px; /* 縮小內距 */
+                font-size: 9.5pt; /* 字體微縮，確保空間足夠 */
+                line-height: 1.5;
+                page-break-inside: avoid; /* 強制備註區塊不可被切斷 */
             }
             .print-notes h4 {
-                margin: 0 0 12px 0;
-                font-size: 12pt;
+                margin: 0 0 10px 0;
+                font-size: 11pt;
                 color: var(--primary-dark);
                 border-bottom: 1px solid var(--border-color);
-                padding-bottom: 8px;
+                padding-bottom: 6px;
             }
             .print-notes ol {
                 margin: 0;
-                padding-left: 20px;
+                padding-left: 18px;
             }
             .print-notes li {
-                margin-bottom: 10px;
+                margin-bottom: 6px; /* 縮減條列間距 */
                 text-align: justify;
-                padding-left: 5px;
             }
             .print-tax-rules {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 10px;
-                margin: 10px 0;
-                padding: 10px;
+                gap: 8px; /* 縮減間距 */
+                margin: 8px 0 0 0;
+                padding: 8px 10px;
                 background-color: #f8fafc;
                 border: 1px solid #e2e8f0;
             }
             .print-tax-rules span {
                 width: 23%;
                 font-weight: bold;
-                font-size: 9.5pt;
+                font-size: 9pt;
             }
         }
     </style>
@@ -1040,7 +1042,7 @@
             <li><strong>最低稅負制：</strong>若保單之「要保人」與「受益人」非同一人，受益人領取之死亡給付須計入基本所得額（免稅額 3,740 萬元）。</li>
             <li><strong>免責聲明：</strong>本報告書採用 114 年度稅法標準試算，資料僅供財務規劃與討論參考，實際核定稅額概以國稅局最終審查結果為準。</li>
         </ol>
-        <div style="margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+        <div style="margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 8px;">
             <strong style="color: #b45309;">⚠️ 保險理賠實質課稅八大態樣 (符合多項可能遭國稅局併入遺產課稅)：</strong>
             <div class="print-tax-rules">
                 <span>1. 重病投保</span><span>2. 高齡投保</span><span>3. 短期投保</span><span>4. 躉繳投保</span>
